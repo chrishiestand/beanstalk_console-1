@@ -1,3 +1,9 @@
 #!/bin/bash
 
-source /etc/apache2/envvars && apache2 -DFOREGROUND
+if [ -n "$1" ]; then
+    server_string="$1"
+else
+    server_string=
+fi
+
+source /etc/apache2/envvars && /usr/bin/env beanstalkd_servers="$server_string" apache2 -DFOREGROUND
